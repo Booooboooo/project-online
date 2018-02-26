@@ -1,0 +1,101 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>作业管理</title>
+		<link rel="stylesheet" type="text/css" href="/js/easyui/themes/metro/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="/css/icon.css" />
+		<script type="text/javascript" src="/js/easyui/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="/js/easyui/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="/js/homework/list.js"></script>
+	</head>
+	<body style="text-align:center">
+        		<table id="homework-dg"  class="easyui-datagrid" style="width:100%;height:auto"
+		        url="/homework" method="GET" toolbar="#toolbar"
+		        rownumbers="true" 
+		        fitColumns="true" 
+		        singleSelect="true"
+		        pagination="true" >
+			   	<thead>
+				        <tr>
+				        	<th field="id" width="30">作业ID</th>
+				        	<th field="taskName" width="70">作业名称</th>
+							<th field="taskDetailResourceUrl" width="120">作业详情</th>
+				            <th field="viewLevel" width="30">等级</th>
+				        	<th field="taskStartTime" width="70">开始时间</th>
+				        	<th field="taskEndTime" width="70">结束时间</th>
+				        </tr>
+					</thead>
+				</table>
+				<div id="toolbar">
+					<div style="margin:5px">
+						<span>作业名称: </span><span><input style="margin-top:0px" id="queryHomeworkTaskName"  type="text"/></span>
+						&nbsp;
+				        &nbsp;
+				        <span>开始时间: </span><span><input id="queryHomeworkStartTime" type="text" class="easyui-datebox"  /></span>
+						&nbsp;
+				        &nbsp;
+						<span>结束时间: </span><span><input id="queryHomeworkEndTime" type="text" class="easyui-datebox" /></span>
+						&nbsp;
+				        &nbsp;						
+				        <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doHomeworkSearch()">查询</a>
+		            </div>        
+		                
+				    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newHomework()">新建作业内容</a>
+				    &nbsp;
+				    &nbsp;	
+				    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteHomework()">删除作业内容</a>
+				</div>
+
+
+
+				<div id="add-homework" class="easyui-dialog" title="创建作业内容" style="display: none;width:500px;height:auto;" data-options="modal:true" >
+						<div style="padding:5px;text-align:center;">
+						<table id = "homeworkForm" style="font-size: 12px;font-weight: bold;color: #777;">
+							<tbody>
+								<tr>
+									<td align="right" width="30%" style="padding-right: 10px">作业名称:</td>
+									<td><input id="addHomeworkTaskName" type="text" style="width:175px" required="required"/></td>
+								</tr>
+								<tr>
+									<td align="right" width="30%" style="padding-right: 10px">作业阶段:</td>
+									<td>
+										<select id="addHomeworkViewLevel" class="easyui-combobox"  style="width:175px;">
+										    <option value="1001" selected="selected">K1阶段</option>
+										    <option value="1002">K2阶段</option>
+										    <option value="1003">K3阶段</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td align="right" width="30%" style="padding-right: 10px">开始时间:</td>
+									<td><input id="addHomeworkTaskStartTime" type="text" class="easyui-datebox" required="required"  style="width:175px"/></td>
+								</tr>
+								<tr>
+									<td align="right" width="30%" style="padding-right: 10px">结束时间:</td>
+									<td><input id="addHomeworkTaskEndTime" type="text" class="easyui-datebox" required="required"  style="width:175px"/></td>
+								</tr>
+								<tr>
+									<td align="right" width="30%" style="padding-right: 10px">作业详情图:</td>
+									<td>
+										<span>
+											<input  type="file" id="addHomeworkTaskDetailResourceUrl" name="addHomeworkTaskDetailResourceUrl" style="width:175px" />
+											<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="uploadResource('addHomeworkTaskDetailResourceUrl','returnHomeworkTaskDetailResourceUrl');" style="margin-right: 18px;">上传文件</a>
+											<input type="easyui-textbox" id="returnHomeworkTaskDetailResourceUrl" disabled="disabled"/>
+										</span>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+						</div>
+						<div style="padding:5px;text-align:center;">
+							<a href="#" class="easyui-linkbutton" icon="icon-ok" onclick="saveHomework()">保存</a>
+							<a href="#" class="easyui-linkbutton" icon="icon-cancel" onclick="closeHomework()">取消</a>
+						</div>
+				</div>
+
+	</body>
+</html>

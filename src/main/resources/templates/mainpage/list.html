@@ -1,0 +1,64 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>活动管理</title>
+		<link rel="stylesheet" type="text/css" href="/js/easyui/themes/metro/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="/css/icon.css" />
+		<script type="text/javascript" src="/js/easyui/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="/js/easyui/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="/js/mainpage/list.js"></script>
+	</head>
+	<body style="text-align:center">
+        		<table id="active-dg"  class="easyui-datagrid" style="width:100%;height:auto"
+		        url="/global/mainpage/query.json" toolbar="#toolbar" 
+		        rownumbers="true" 
+		        fitColumns="true" 
+		        singleSelect="true" 
+		        pagination="true">
+			   	<thead>
+				        <tr>
+				        	<th field="id" width="50">首页ID</th>
+				        	<th field="resFakeName" width="50">APP版本描述</th>
+				        	<th field="version" width="50">图片版本</th>
+				            <th field="resUrl" width="50">图片地址</th>
+				        </tr>
+					</thead>
+				</table>
+				
+				<div id="toolbar">
+				    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newPage()">创建新首图</a>
+				</div>
+				
+				<div id="add-page" class="easyui-dialog" title="添加首页图片" style="display: none;width:500px;height:auto;" data-options="modal:true" >
+						<div style="padding:5px;text-align:center;">
+						<table id = "pageForm" style="font-size: 12px;font-weight: bold;color: #777;">
+							<tbody>
+								<tr>
+									<td align="right" width="30%" style="padding-right: 10px">APP版本:</td>
+									<td><input id="addFakeName" type="text" style="width:175px" required="required"/></td>
+								</tr>
+								<tr>
+									<td align="right" width="30%" style="padding-right: 10px" >首页图片:</td>
+									<td>
+										<span>
+											<input type="file" id="pageUrl" name="pageUrl" style="width:175px" /> 
+											<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="uploadResource('pageUrl','returnPageUrl');" style="margin-right: 18px;">上传文件</a> 
+											<input type="easyui-textbox" id="returnPageUrl" disabled="disabled" /> 
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+						<div style="padding:5px;text-align:center;">
+							<a href="#" class="easyui-linkbutton" icon="icon-ok" onclick="savePage()">保存</a>
+							<a href="#" class="easyui-linkbutton" icon="icon-cancel" onclick="closePage()">取消</a>
+						</div>
+				</div>
+				
+	</body>
+	
+</html>
